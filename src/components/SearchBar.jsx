@@ -5,9 +5,9 @@ function SearchBar({onSearch}){
     const [query,setQuery] = useState("");
 
     const handleChange = (e) => {
-        setQuery(e.target.value)
-        console.log(e.target.value)
-        onSearch(query)
+        const newQuery = e.target.value
+        setQuery(newQuery)
+        onSearch(newQuery)
     }
 
     const handleSubmit = (e) => {

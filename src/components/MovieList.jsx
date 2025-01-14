@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Flag from 'react-world-flags';
 
 function MovieList({ query }) {
   const [movies, setMovies] = useState([]); 
@@ -33,6 +34,18 @@ function MovieList({ query }) {
     fetchMovies();
   }, [query]); 
 
+  function getFlag(linguaggio){
+    const flags = {
+        en: 'https://flagcdn.com/w320/us.png',  
+        it: 'https://flagcdn.com/w320/it.png',  
+        fr: 'https://flagcdn.com/w320/fr.png', 
+        de: 'https://flagcdn.com/w320/de.png',  
+        es: 'https://flagcdn.com/w320/es.png',  
+      };
+          return flags[linguaggio] || 'https://flagcdn.com/w320/unknown.png';
+      
+  }
+
   return (
     <div className='container'>
         {movies.map((movie) => (
@@ -47,7 +60,9 @@ function MovieList({ query }) {
                 <h3>{movie.title}</h3>
                 <p>{movie.overview}</p>
                 <p>Valutazione Media: {movie.vote_average/2}</p>
-                <p>Lingua: {movie.original_language}</p>
+                <div className='flag'>
+                    <img src={getFlag(movie.original_language)}/>
+                </div>
                 <p>{movie.release_date}</p>
             </div>
         </div>
