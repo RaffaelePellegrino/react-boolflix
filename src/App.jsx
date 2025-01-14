@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import HeaderComponent from './components/HeaderComponent'
+import MovieList from './components/MovieList'
 
 function App() {
   const [query, setQuery] = useState("")
@@ -14,6 +15,9 @@ function App() {
   return (
     <>
       <HeaderComponent onSearch={handleSearch}/>
+      <MovieList query={query} />
+        
+      
     </>
   )
 }
