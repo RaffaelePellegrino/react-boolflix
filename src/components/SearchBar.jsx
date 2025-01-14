@@ -7,6 +7,7 @@ function SearchBar({onSearch}){
     const handleChange = (e) => {
         setQuery(e.target.value)
         console.log(e.target.value)
+        onSearch(query)
     }
 
     const handleSubmit = (e) => {
