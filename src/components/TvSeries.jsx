@@ -8,17 +8,12 @@ function SeriesList({ query }) {
   const [error, setError] = useState('');  
 
   useEffect(() => {
-    if (!query){
-        return(
-            console.log("scegli il film")
-        )
-    }; 
 
     const fetchSeries = async () => {
       setLoading(true);
       setError('');
       try {
-        const response = await axios.get('https://api.themoviedb.org/3/search/tv', {
+        const response = await axios.get('https://api.themoviedb.org/3/discover/tv', {
           params: {
             api_key: '2f8263db41ede25be58d41a51f59201d',  
             query: query,

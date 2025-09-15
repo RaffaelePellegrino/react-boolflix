@@ -8,31 +8,38 @@ function MovieList({ query }) {
   const [error, setError] = useState('');  
 
   useEffect(() => {
-    if (!query){
-        return(
-            console.log("scegli il film")
-        )
-    }; 
+  const fetchMovies = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      let response;
 
-    const fetchMovies = async () => {
-      setLoading(true);
-      setError('');
-      try {
-        const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
+      if (query) {
+        // ricerca
+        response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
           params: {
-            api_key: '2f8263db41ede25be58d41a51f59201d',  
+            api_key: '2f8263db41ede25be58d41a51f59201d',
             query: query,
           },
         });
-        setMovies(response.data.results);
-      } catch (error) {
-        setError('Errore durante il recupero del film');
+      } else {
+        // film popolari se query è vuoto
+        response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
+          params: {
+            api_key: '2f8263db41ede25be58d41a51f59201d',
+          },
+        });
       }
-      setLoading(false);
-    };
 
-    fetchMovies();
-  }, [query]); 
+      setMovies(response.data.results);
+    } catch (error) {
+      setError('Errore durante il recupero dei film');
+    }
+    setLoading(false);
+  };
+
+  fetchMovies();
+  }, [query]);
 
   function getFlag(linguaggio){
     const flags = {
